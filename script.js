@@ -20,6 +20,7 @@ function renderTasks() {
   tasks.forEach((task, index) => {
     let li = document.createElement("li");
 
+    // TEXT
     let textSpan = document.createElement("span");
     textSpan.textContent = task.text;
 
@@ -33,9 +34,15 @@ function renderTasks() {
       renderTasks();
     };
 
-    // EDIT
+    // BUTTON CONTAINER
+    let btnDiv = document.createElement("div");
+    btnDiv.style.float = "right";
+
+    // EDIT BUTTON
     let editBtn = document.createElement("button");
     editBtn.innerText = "✏️";
+    editBtn.style.marginLeft = "10px";
+
     editBtn.onclick = () => {
       let newText = prompt("Edit task:", task.text);
       if (newText && newText.trim() !== "") {
@@ -45,18 +52,22 @@ function renderTasks() {
       }
     };
 
-    // DELETE
+    // DELETE BUTTON
     let deleteBtn = document.createElement("button");
     deleteBtn.innerText = "❌";
+    deleteBtn.style.marginLeft = "5px";
+
     deleteBtn.onclick = () => {
       tasks.splice(index, 1);
       saveTasks();
       renderTasks();
     };
 
+    btnDiv.appendChild(editBtn);
+    btnDiv.appendChild(deleteBtn);
+
     li.appendChild(textSpan);
-    li.appendChild(editBtn);
-    li.appendChild(deleteBtn);
+    li.appendChild(btnDiv);
 
     list.appendChild(li);
   });
